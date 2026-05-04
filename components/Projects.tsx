@@ -74,7 +74,7 @@ export default function Projects() {
       const spacing = 0.3;
 
       // All cards start off-screen right, scaled down, invisible
-      gsap.set(cards, { x: "100vw", opacity: 0, scale: 0 });
+      gsap.set(cards, { xPercent: 150, opacity: 0, scale: 0 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -104,8 +104,8 @@ export default function Projects() {
         );
         // Simultaneously slide from right to left
         tl.fromTo(card,
-          { x: "100vw" },
-          { x: "-100vw", duration: 1, ease: "none", immediateRender: false },
+          { xPercent: 150 },
+          { xPercent: -150, duration: 1, ease: "none", immediateRender: false },
           startTime
         );
       });
