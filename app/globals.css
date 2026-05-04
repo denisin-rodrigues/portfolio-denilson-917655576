@@ -295,7 +295,7 @@ body {
 
 /* 3D Tablet Background */
 .demo-world3d {
-  position: fixed;
+  position: absolute;
   top: var(--demo-tabletOffset);
   z-index: -1;
   perspective: 1000px;

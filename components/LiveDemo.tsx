@@ -242,65 +242,70 @@ export default function LiveDemo() {
 
       <div
         ref={mainRef}
-        className="demo-main relative w-full max-w-[740px] mx-auto"
-        style={{ visibility: "hidden", minHeight: "2400px" }}
+        className="demo-main relative w-full"
+        style={{ visibility: "hidden" }}
       >
-        {/* ── 3D Tablet Background ── */}
-        <div className="demo-world3d">
-          <div className="demo-tablet" />
+        {/* ── Sticky Background Container ── */}
+        <div className="sticky top-0 left-0 w-full h-screen overflow-hidden pointer-events-none z-0">
+          {/* ── 3D Tablet Background ── */}
+          <div className="demo-world3d">
+            <div className="demo-tablet" />
+          </div>
+
+          {/* ── SVG Animated Paths ── */}
+          <svg
+            className="demo-svg-paths"
+            viewBox="0 0 740 2200"
+            preserveAspectRatio="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <linearGradient
+                id="lineGrad"
+                gradientUnits="userSpaceOnUse"
+                x1="0"
+                y1="0"
+                x2="0"
+                y2="2200"
+              >
+                <stop offset="0%" stopColor="#9ED8FF" stopOpacity="0.6" />
+                <stop offset="25%" stopColor="#CFAE6E" stopOpacity="0.4" />
+                <stop offset="50%" stopColor="#74C7FF" stopOpacity="0.5" />
+                <stop offset="75%" stopColor="#CFAE6E" stopOpacity="0.3" />
+                <stop offset="100%" stopColor="#9ED8FF" stopOpacity="0.2" />
+              </linearGradient>
+            </defs>
+            {/* Path 1 */}
+            <path
+              className="demo-line demo-line-1"
+              d="M 370 0 C 370 200 100 300 100 500 S 640 600 640 800 S 100 900 100 1100 S 640 1200 640 1400 S 370 1600 370 1800 L 370 2200"
+              fill="none"
+              stroke="url(#lineGrad)"
+              strokeLinecap="round"
+            />
+            {/* Path 2 */}
+            <path
+              className="demo-line demo-line-2"
+              d="M 320 0 C 320 180 600 280 600 480 S 140 580 140 780 S 600 880 600 1080 S 140 1180 140 1380 S 320 1580 320 1780 L 320 2200"
+              fill="none"
+              stroke="url(#lineGrad)"
+              strokeLinecap="round"
+            />
+            {/* Path 3 */}
+            <path
+              className="demo-line demo-line-3"
+              d="M 420 0 C 420 220 180 350 180 550 S 560 650 560 850 S 180 950 180 1150 S 560 1250 560 1450 S 420 1650 420 1850 L 420 2200"
+              fill="none"
+              stroke="url(#lineGrad)"
+              strokeLinecap="round"
+            />
+          </svg>
         </div>
 
-        {/* ── SVG Animated Paths ── */}
-        <svg
-          className="demo-svg-paths"
-          viewBox="0 0 740 2200"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient
-              id="lineGrad"
-              gradientUnits="userSpaceOnUse"
-              x1="0"
-              y1="0"
-              x2="0"
-              y2="2200"
-            >
-              <stop offset="0%" stopColor="#9ED8FF" stopOpacity="0.6" />
-              <stop offset="25%" stopColor="#CFAE6E" stopOpacity="0.4" />
-              <stop offset="50%" stopColor="#74C7FF" stopOpacity="0.5" />
-              <stop offset="75%" stopColor="#CFAE6E" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="#9ED8FF" stopOpacity="0.2" />
-            </linearGradient>
-          </defs>
-          {/* Path 1 */}
-          <path
-            className="demo-line demo-line-1"
-            d="M 370 0 C 370 200 100 300 100 500 S 640 600 640 800 S 100 900 100 1100 S 640 1200 640 1400 S 370 1600 370 1800 L 370 2200"
-            fill="none"
-            stroke="url(#lineGrad)"
-            strokeLinecap="round"
-          />
-          {/* Path 2 */}
-          <path
-            className="demo-line demo-line-2"
-            d="M 320 0 C 320 180 600 280 600 480 S 140 580 140 780 S 600 880 600 1080 S 140 1180 140 1380 S 320 1580 320 1780 L 320 2200"
-            fill="none"
-            stroke="url(#lineGrad)"
-            strokeLinecap="round"
-          />
-          {/* Path 3 */}
-          <path
-            className="demo-line demo-line-3"
-            d="M 420 0 C 420 220 180 350 180 550 S 560 650 560 850 S 180 950 180 1150 S 560 1250 560 1450 S 420 1650 420 1850 L 420 2200"
-            fill="none"
-            stroke="url(#lineGrad)"
-            strokeLinecap="round"
-          />
-        </svg>
-
-        {/* ── Section Header ── */}
-        <div className="demo-section-header relative z-20 pt-20 md:pt-32 px-6 md:px-0 mb-16">
+        {/* ── Scrollable Content Container ── */}
+        <div className="relative z-10 w-full max-w-[740px] mx-auto -mt-[100vh] pt-20 md:pt-32" style={{ minHeight: "2400px" }}>
+          {/* ── Section Header ── */}
+          <div className="demo-section-header relative z-20 px-6 md:px-0 mb-16">
           <div className="flex gap-4 mb-7 items-center">
             <span className="w-7 md:w-10 h-px bg-accent-blue shrink-0" />
             <span className="text-label-sm sm:text-label-md uppercase tracking-label text-accent-blue font-display">
