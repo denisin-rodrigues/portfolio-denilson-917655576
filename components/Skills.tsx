@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { BorderBeam } from "@/components/ui/border-beam";
 
 const skills = [
@@ -58,22 +58,25 @@ export default function Skills() {
     if (prefersReduced) return;
 
     const ctx = gsap.context(() => {
-      gsap.from(".skill-card", {
-        y: 40,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".skills-grid",
-          start: "top 82%",
-        },
-      });
+      gsap.fromTo(".skill-card", 
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".skills-grid",
+            start: "top bottom",
+            toggleActions: "play none none none"
+          },
+        }
+      );
     }, sectionRef);
 
     return () => {
       ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -118,7 +121,7 @@ export default function Skills() {
           {skills.map((skill, i) => (
             <div
               key={i}
-              className="skill-card group relative overflow-hidden bg-bg-primary border border-border-primary transition-all duration-500 hover:border-accent-blue/30 hover:-translate-y-[2px]"
+              className="skill-card group relative overflow-hidden bg-bg-primary border border-border-primary transition-colors duration-500 hover:border-accent-blue/30"
             >
               {/* Inner card bg */}
               <div className="absolute inset-[1px] bg-bg-primary z-0" />

@@ -1,5 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+import { gsap } from "@/lib/gsap";
+
 const technologies = [
   "Python", "JavaScript", "Node.js", "React", "Next.js", "GSAP", "Three.js",
   "Remotion", "Antigravity", "Claude Code", "Prompt Eng", "Design System",
@@ -11,8 +14,36 @@ const row1 = [...technologies, ...technologies];
 const row2 = [...[...technologies].reverse(), ...[...technologies].reverse()];
 
 export default function Stack() {
+  const containerRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(".marquee-row-1", {
+        xPercent: -50,
+        ease: "none",
+        duration: 40,
+        repeat: -1,
+      });
+
+      gsap.fromTo(".marquee-row-2", 
+        { xPercent: -50 },
+        {
+          xPercent: 0,
+          ease: "none",
+          duration: 40,
+          repeat: -1,
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={containerRef}
       className="relative z-10 border-t border-border-primary py-20 md:py-32 overflow-hidden"
       id="stack"
     >
@@ -35,13 +66,13 @@ export default function Stack() {
 
       {/* Marquee Row 1 — Left */}
       <div
-        className="relative overflow-hidden mb-4"
+        className="relative overflow-hidden mb-4 flex"
         style={{
           maskImage: "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)",
           WebkitMaskImage: "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)",
         }}
       >
-        <div className="flex gap-4 w-max animate-marquee-left hover:[animation-play-state:paused]">
+        <div className="flex gap-4 w-max marquee-row-1 hover:[animation-play-state:paused]">
           {row1.map((tech, i) => (
             <span
               key={`r1-${i}`}
@@ -55,13 +86,13 @@ export default function Stack() {
 
       {/* Marquee Row 2 — Right */}
       <div
-        className="relative overflow-hidden"
+        className="relative overflow-hidden flex"
         style={{
           maskImage: "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)",
           WebkitMaskImage: "linear-gradient(90deg, transparent, black 10%, black 90%, transparent)",
         }}
       >
-        <div className="flex gap-4 w-max animate-marquee-right hover:[animation-play-state:paused]">
+        <div className="flex gap-4 w-max marquee-row-2 hover:[animation-play-state:paused]">
           {row2.map((tech, i) => (
             <span
               key={`r2-${i}`}

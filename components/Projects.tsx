@@ -74,7 +74,7 @@ export default function Projects() {
       const spacing = 0.3;
 
       // All cards start off-screen right, scaled down, invisible
-      gsap.set(cards, { xPercent: 150, opacity: 0, scale: 0 });
+      gsap.set(cards, { x: "100vw", opacity: 0, scale: 0 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -92,20 +92,20 @@ export default function Projects() {
         const startTime = i * spacing;
 
         // Scale up and fade in (first half)
-        tl.fromTo(card, 
-          { scale: 0, opacity: 0 }, 
+        tl.fromTo(card,
+          { scale: 0, opacity: 0 },
           { scale: 1, opacity: 1, zIndex: 100, duration: 0.5, ease: "power1.in", immediateRender: false },
           startTime
         );
         // Scale back down and fade out (second half)
-        tl.to(card, 
+        tl.to(card,
           { scale: 0, opacity: 0, duration: 0.5, ease: "power1.out", immediateRender: false },
           startTime + 0.5
         );
         // Simultaneously slide from right to left
-        tl.fromTo(card, 
-          { xPercent: 150 }, 
-          { xPercent: -150, duration: 1, ease: "none", immediateRender: false },
+        tl.fromTo(card,
+          { x: "100vw" },
+          { x: "-100vw", duration: 1, ease: "none", immediateRender: false },
           startTime
         );
       });
@@ -129,12 +129,12 @@ export default function Projects() {
           <div className="h-[1px] w-24 bg-gradient-to-r from-transparent via-accent-blue to-transparent mx-auto" />
         </div>
 
-        {/* Cards — CodePen layout */}
-        <ul className="cards absolute top-[40%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-[17rem] h-[22rem] md:w-[22rem] md:h-[28rem] list-none m-0 p-0">
+        {/* Cards — absolutely centered container */}
+        <div className="cards absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[17rem] h-[22rem] md:w-[22rem] md:h-[28rem]">
           {projects.map((project) => (
-            <li
+            <div
               key={project.id}
-              className="project-card absolute top-0 left-0 w-[17rem] md:w-[22rem] aspect-[9/16] rounded-xl border border-white/10 bg-bg-primary overflow-hidden shadow-2xl will-change-transform"
+              className="project-card absolute top-0 left-0 w-full h-full rounded-xl border border-white/10 bg-bg-primary overflow-hidden shadow-2xl will-change-transform"
             >
               {/* Border beam effect */}
               <BorderBeam size={150} duration={8} colorFrom="#9ED8FF" colorTo="#CFAE6E" />
@@ -169,9 +169,9 @@ export default function Projects() {
                   <span className="w-6 h-[1px] bg-accent-gold" />
                 </a>
               </div>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
 
         {/* Bottom hint */}
         <div className="absolute bottom-8 left-1/2 -translate-x-1/2 opacity-20 z-20">

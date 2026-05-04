@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { BorderBeam } from "@/components/ui/border-beam";
 
 const topics = [
@@ -36,22 +36,25 @@ export default function Teaching() {
     if (prefersReduced) return;
 
     const ctx = gsap.context(() => {
-      gsap.from(".teaching-card", {
-        y: 30,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.12,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".teaching-grid",
-          start: "top 82%",
-        },
-      });
+      gsap.fromTo(".teaching-card", 
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".teaching-grid",
+            start: "top bottom",
+            toggleActions: "play none none none"
+          },
+        }
+      );
     }, sectionRef);
 
     return () => {
       ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -89,7 +92,7 @@ export default function Teaching() {
           {topics.map((topic, i) => (
             <div
               key={i}
-              className="teaching-card group relative overflow-hidden bg-bg-primary border border-border-primary p-6 md:p-8 transition-all duration-500 hover:border-accent-gold/30 hover:-translate-y-[2px]"
+              className="teaching-card group relative overflow-hidden bg-bg-primary border border-border-primary p-6 md:p-8 transition-colors duration-500 hover:border-accent-gold/30"
             >
               {/* BorderBeam effect */}
               <BorderBeam size={120} duration={9} colorFrom="#CFAE6E" colorTo="#9ED8FF" delay={i} />

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { BorderBeam } from "@/components/ui/border-beam";
 
 const stats = [
@@ -21,48 +21,59 @@ export default function About() {
 
     const ctx = gsap.context(() => {
       // Title animation
-      gsap.from(".about-title", {
-        y: 30,
-        opacity: 0,
-        duration: 1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".about-title",
-          start: "top 80%",
-        },
-      });
+      gsap.fromTo(".about-title", 
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".about-title",
+            start: "top bottom",
+            toggleActions: "play none none none"
+          },
+        }
+      );
 
       // Bio text animation — line by line
-      gsap.from(".about-line", {
-        y: 20,
-        opacity: 0,
-        duration: 0.8,
-        stagger: 0.08,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".about-text",
-          start: "top 80%",
-        },
-      });
+      gsap.fromTo(".about-line", 
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.08,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".about-text",
+            start: "top bottom",
+            toggleActions: "play none none none"
+          },
+        }
+      );
 
       // Stats animation
-      gsap.from(".stat-item", {
-        y: 24,
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.8,
-        stagger: 0.1,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: ".stats-grid",
-          start: "top 85%",
-        },
-      });
+      gsap.fromTo(".stat-item", 
+        { y: 24, opacity: 0, scale: 0.95 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".stats-grid",
+            start: "top bottom",
+            toggleActions: "play none none none"
+          },
+        }
+      );
     }, sectionRef);
 
     return () => {
       ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -118,7 +129,7 @@ export default function About() {
             {stats.map((stat, i) => (
               <div
                 key={i}
-                className="stat-item group relative overflow-hidden bg-bg-primary border border-border-primary p-6 md:p-8 transition-all duration-500 hover:border-accent-blue/30"
+                className="stat-item group relative overflow-hidden bg-bg-primary border border-border-primary p-6 md:p-8 transition-colors duration-500 hover:border-accent-blue/30"
               >
                 {/* BorderBeam effect */}
                 <BorderBeam size={100} duration={8} colorFrom="#9ED8FF" colorTo="#CFAE6E" delay={i} />

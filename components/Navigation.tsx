@@ -32,6 +32,7 @@ export default function Navigation() {
     { href: "#sobre", label: "SOBRE" },
     { href: "#habilidades", label: "SKILLS" },
     { href: "#projetos", label: "PROJETOS" },
+    { href: "#demos", label: "DEMOS" },
     { href: "#stack", label: "STACK" },
     { href: "#contato", label: "CONTATO" },
   ];

@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useEffect } from "react";
-import { gsap, ScrollTrigger } from "@/lib/gsap";
+import { gsap } from "@/lib/gsap";
 import { BorderBeam } from "@/components/ui/border-beam";
 
 const socialLinks = [
@@ -57,27 +57,27 @@ export default function Contact() {
       const ctaTl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 82%",
+          start: "top bottom",
+          toggleActions: "play none none none"
         },
       });
 
       if (ctaEyebrow) {
-        ctaTl.from(ctaEyebrow, { y: 14, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.2);
+        ctaTl.fromTo(ctaEyebrow, { y: 14, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.2);
       }
       if (ctaLines?.length) {
-        ctaTl.from(ctaLines, { y: 30, opacity: 0, filter: "blur(4px)", duration: 1, stagger: 0.15, ease: "power3.out" }, 0.4);
+        ctaTl.fromTo(ctaLines, { y: 30, opacity: 0, filter: "blur(4px)" }, { y: 0, opacity: 1, filter: "blur(0px)", duration: 1, stagger: 0.15, ease: "power3.out" }, 0.4);
       }
       if (ctaSub) {
-        ctaTl.from(ctaSub, { y: 18, opacity: 0, duration: 0.8, ease: "power3.out" }, 0.8);
+        ctaTl.fromTo(ctaSub, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }, 0.8);
       }
       if (ctaBtns?.length) {
-        ctaTl.from(ctaBtns, { y: 18, opacity: 0, duration: 0.8, stagger: 0.1, ease: "power3.out" }, 1.2);
+        ctaTl.fromTo(ctaBtns, { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }, 1.2);
       }
     }, sectionRef);
 
     return () => {
       ctx.revert();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
     };
   }, []);
 
@@ -128,7 +128,7 @@ export default function Contact() {
               href={social.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="social-link relative overflow-hidden group w-full sm:w-auto inline-flex items-center gap-4 px-6 py-4 border border-border-primary bg-bg-primary/80 transition-all duration-300 hover:border-accent-gold/40 hover:-translate-y-[2px]"
+              className="social-link relative overflow-hidden group w-full sm:w-auto inline-flex items-center gap-4 px-6 py-4 border border-border-primary bg-bg-primary/80 transition-colors duration-300 hover:border-accent-gold/40"
             >
               <BorderBeam size={80} duration={5} colorFrom="#9ED8FF" colorTo="#CFAE6E" delay={i * 1.2} />
               

@@ -1,15 +1,10 @@
+plugins = []
 headers = []
 redirects = []
 
 [functions]
 
 [functions."*"]
-
-[[plugins]]
-origin = "default"
-package = "@netlify/plugin-nextjs"
-
-[plugins.inputs]
 
 [build]
 publish = "C:\\Users\\denil\\OneDrive\\Desktop\\portifolio\\portfolio-app\\.next"
