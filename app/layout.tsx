@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Denilson Rodrigues — Dev, IA & Produto",
     description: "Do prompt ao produto. Código, IA e visão criativa.",
-    url: "https://denisin.dev",
+    url: "https://denisini-ia.netlify.app/",
     type: "website",
     images: [{ url: "/og-image.png", width: 1200, height: 630 }],
   },
