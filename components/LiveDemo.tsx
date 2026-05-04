@@ -112,7 +112,7 @@ export default function LiveDemo() {
           const strokeOffset = -(2400 * progress);
           document.documentElement.style.setProperty(
             "--demo-strokeDashoffset",
-            String(strokeOffset)
+            `${strokeOffset}px`
           );
 
           const tabletOffset = -parseInt(String(tabletMove * progress)) + "px";
