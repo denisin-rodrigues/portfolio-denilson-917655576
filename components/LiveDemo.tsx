@@ -162,45 +162,48 @@ export default function LiveDemo() {
         );
 
         // Typewriter effect line-by-line recursive logic
-        const lines = Array.from(card.querySelectorAll(".demo-code-line"));
-        let hasWritten = false;
-
-        const writeLine = (lineIndex: number) => {
-          if (hasWritten || lineIndex >= lines.length) {
-            hasWritten = true;
-            return;
-          }
-
-          const line = lines[lineIndex];
-          const chars = line.querySelectorAll<HTMLElement>(".demo-char");
-
-          if (chars.length === 0) {
-            writeLine(lineIndex + 1);
-            return;
-          }
-
-          gsap.timeline({
-            defaults: { repeatDelay: 0 },
-            onComplete: () => {
-              writeLine(lineIndex + 1);
-            }
-          }).to(chars, {
-            opacity: 1,
-            duration: 0.01,
-            stagger: 0.015,
-            ease: "none",
-          });
-        };
-
-        // Initialize chars to hidden
         const allChars = card.querySelectorAll<HTMLElement>(".demo-char");
         if (allChars.length > 0) {
           gsap.set(allChars, { opacity: 0 });
+
+          const lines = Array.from(card.querySelectorAll(".demo-code-line"));
+          let hasWritten = false;
+          let isWriting = false;
+
+          const writeLine = (lineIndex: number) => {
+            if (lineIndex >= lines.length) {
+              hasWritten = true;
+              isWriting = false;
+              return;
+            }
+
+            const line = lines[lineIndex];
+            const chars = line.querySelectorAll<HTMLElement>(".demo-char");
+
+            if (chars.length === 0) {
+              writeLine(lineIndex + 1);
+              return;
+            }
+
+            gsap.to(chars, {
+              opacity: 1,
+              duration: 0.01,
+              stagger: 0.03,
+              ease: "none",
+              onComplete: () => {
+                writeLine(lineIndex + 1);
+              }
+            });
+          };
+
           ScrollTrigger.create({
             trigger: card,
             start: "top bottom-=100",
             onEnter: () => {
-              if (!hasWritten) writeLine(0);
+              if (!hasWritten && !isWriting) {
+                isWriting = true;
+                writeLine(0);
+              }
             },
           });
         }
@@ -350,7 +353,7 @@ export default function LiveDemo() {
                             className="demo-char"
                             aria-hidden="true"
                           >
-                            {char}
+                            {char === " " ? "\u00A0" : char}
                           </span>
                         ))}
                       </div>
